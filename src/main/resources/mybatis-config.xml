@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- 在mapper.xml中可以写pojo的简单类名，mybatis会自动去指定包下找类 -->
+		<package name="shop.model" />
+	</typeAliases>
+</configuration>
