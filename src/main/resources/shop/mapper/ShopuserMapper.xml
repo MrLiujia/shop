@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="shop.mapper.ShopuserMapper">
+	<insert id="create">
+		insert into
+		Shopuser(username,password)
+		values(#{username},#{password})
+	</insert>
+
+	<select id="findOneByUsername" resultType="Shopuser">
+		select * from shopuser where USERNAME = #{username}
+	</select>
+  
+  </mapper>
