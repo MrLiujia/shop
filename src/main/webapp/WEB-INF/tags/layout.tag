@@ -27,6 +27,7 @@
     </sec:authorize>  
     
     <sec:authorize access="isAnonymous()">
+      <a href="${contextPath}/">首页</a>
       <a href="${contextPath}/login">登录</a>
       <a href="${contextPath}/shopuser/add">注册</a>
     </sec:authorize>

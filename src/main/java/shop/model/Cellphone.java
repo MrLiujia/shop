@@ -23,7 +23,10 @@ public class Cellphone {
 		return brand;
 	}
 	public void setBrand(String brand) {
-		this.brand = brand;
+		if (brand != null && !brand.trim().isEmpty()) {
+			this.brand = brand;
+        }
+		
 	}
 	public String getModel() {
 		return model;
@@ -35,13 +38,17 @@ public class Cellphone {
 		return os;
 	}
 	public void setOs(String os) {
-		this.os = os;
+        if (os != null && !os.trim().isEmpty()) {
+            this.os = os;
+        }
 	}
 	public String getCpubrand() {
 		return cpubrand;
 	}
 	public void setCpubrand(String cpubrand) {
-		this.cpubrand = cpubrand;
+		if (cpubrand != null && !cpubrand.trim().isEmpty()) {
+            this.cpubrand = cpubrand;
+        }
 	}
 	public Integer getRam() {
 		return ram;
@@ -72,6 +79,12 @@ public class Cellphone {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	@Override
+	public String toString() {
+		return "Cellphone [id=" + id + ", brand=" + brand + ", model=" + model + ", os=" + os + ", cpubrand=" + cpubrand
+				+ ", ram=" + ram + ", storage=" + storage + ", color=" + color + ", price=" + price + ", description="
+				+ description + "]";
 	}
 	
 

@@ -16,16 +16,18 @@ public class ShopuserDetailsServiceImpl implements UserDetailsService{
 	public ShopuserDetailsServiceImpl(ShopuserMapper shopuserMapper) {
 		this.shopuserMapper = shopuserMapper;
 	}
-
-	@Override
+	
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
-		Shopuser shopuser =  shopuserMapper.findOneByUsername(username);
-		 if (shopuser == null) { 
-	            throw new UsernameNotFoundException("用户名不存在: " + username);
-	        }
-		return new ShopuserDetailsImpl(shopuser); 
-		
+		// TODO Auto-generated method stub
+		Shopuser shopuser = shopuserMapper.findOneByUsername(username);
+		if (shopuser == null) {
+			throw new UsernameNotFoundException("用户名不存在: " + username);
+		}
+		return new ShopuserDetailsImpl(shopuser);
 	}
+	
+	
+
 
 }

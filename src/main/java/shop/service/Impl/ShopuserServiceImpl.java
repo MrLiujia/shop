@@ -20,11 +20,15 @@ public class ShopuserServiceImpl implements ShopuserService{
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	@Override
+
+
 	public void create(String username, String password) {
-		String encodedPassword = passwordEncoder.encode(password);
+		// TODO Auto-generated method stub
+		String  encodedPassword = passwordEncoder.encode(password);
 		shopuserMapper.create(username, encodedPassword);
 	}
+	
+	
 
 
 

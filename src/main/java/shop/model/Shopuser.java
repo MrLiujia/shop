@@ -1,15 +1,22 @@
 package shop.model;
 
+import java.util.Date;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Shopuser {
 	private Long id;
-	@Pattern(regexp="^[A-Za-z][A-Za-z1-9_-]+$",message="字母开头 + 数字/字母/下划线s")
 	private String username;
-	@Pattern(regexp="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$",message="6-21字母和数字组成")
 	private String password;
+	private Date lastTime;
 	
+	public Date getLastTime() {
+		return lastTime;
+	}
+	public void setLastTime(Date lastTime) {
+		this.lastTime = lastTime;
+	}
 	public Long getId() {
 		return id;
 	}
