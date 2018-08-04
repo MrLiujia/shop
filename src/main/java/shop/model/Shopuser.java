@@ -2,8 +2,6 @@ package shop.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 public class Shopuser {
 	private Long id;

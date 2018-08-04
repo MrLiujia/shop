@@ -124,9 +124,22 @@
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
           <version>1.2.3</version>
-        </dependency>        
-        
-            		
+        </dependency>
+
+
+	<dependency>
+		<groupId>com.alipay.sdk</groupId>
+		<artifactId>alipay-sdk-java</artifactId>
+		<version>3.3.4.ALL</version>
+	</dependency>
+
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>2.6</version>
+	</dependency>
+
+	
         			
 	</dependencies>
 </project>

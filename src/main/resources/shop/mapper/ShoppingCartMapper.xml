@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="shop.mapper.ShoppingCartMapper">
+	<select id="findItemQuantity" resultType="Integer">
+		select quantity from cellphone_shopuser
+		where shopuser_id = #{shopuserId} and CELLPHONE_ID = #{cellphoneId}
+	</select>
+
+	<update id="incItemQuantity">
+		update cellphone_shopuser
+		set QUANTITY = QUANTITY + #{quantity}
+		where shopuser_id = #{shopuserId} and CELLPHONE_ID = #{cellphoneId}
+	</update>
+
+	<insert id="createItem">
+		insert into cellphone_shopuser (cellphone_id, shopuser_id, quantity)
+		values (#{cellphoneId}, #{shopuserId}, #{quantity})
+	</insert>
+	
+
+
+
+	<select id="findAllItems" resultMap="itemDetailsMap">
+		select
+		i.SHOPUSER_ID, i.quantity,
+		c.ID CELLPHONE_ID, c.BRAND CELLPHONE_BRAND, c.MODEL CELLPHONE_MODEL,
+		c.COLOR CELLPHONE_COLOR, c.PRICE CELLPHONE_PRICE
+		from cellphone_shopuser i
+		inner join CELLPHONE c on i.CELLPHONE_ID = c.ID
+		where i.SHOPUSER_ID = #{shopuserId}
+		order by c.ID
+	</select>
+  
+  <resultMap type="ShoppingCartItem" id="itemDetailsMap">
+  <!-- 虽然购物车不需要用户信息，但是mybatis需要主键来去重 -->
+  <id column="cellphone_id"/>
+  <id column="shopuser_id"/>
+  <result column="QUANTITY" property="quantity" /> 
+    <association property="cellphone" javaType="Cellphone">
+      <id column="CELLPHONE_ID" property="id" />
+      <result column="CELLPHONE_BRAND" property="brand" />
+      <result column="CELLPHONE_MODEL" property="model" />
+      <result column="CELLPHONE_COLOR" property="color" />
+      <result column="CELLPHONE_PRICE" property="price" />
+    </association>
+  </resultMap>
+
+
+	<delete id="removeItem">
+		DELETE FROM cellphone_shopuser c
+		WHERE c.cellphone_id=#{cellphoneId} and c.shopuser_id=#{shopuserId}
+	</delete>
+	
+	<delete id="deleteItemsByUserId">
+		delete from cellphone_shopuser where shopuser_id =#{shopuserId}
+	</delete>
+	
+</mapper>

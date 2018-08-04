@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 <t:layout title="手机详情">
 	<div>
@@ -18,5 +19,12 @@
 		<div>价格：${cellphones.price}</div>
 	</div>
 
+	<div>
+		<form action="${contextPath}/uc/shopping-cart/add" method="post">
+			<sec:csrfInput />
+			<input type="hidden" name="cellphoneId" value="${cellphones.id}">
+			<button type="submit">添加到购物车</button>
+		</form>
+	</div>
 
 </t:layout>

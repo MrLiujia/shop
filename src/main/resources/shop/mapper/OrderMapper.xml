@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="shop.mapper.OrderMapper">
+	<insert id="create" useGeneratedKeys="true" keyColumn="ID" keyProperty="id">
+		insert into orders (shopuser_id, receiving_address_id,last_time,STATE)
+		values (#{shopuserId}, #{receivingAddress.id}, #{lastTime}, #{state})
+	</insert>
+	
+	<insert id="addItem">
+    	insert into order_item (order_id, cellphone_id, quantity) 
+    	values (#{orderId}, #{cellphone.id}, #{quantity})
+  	</insert>
+
+
+	<select id="findOne" resultMap="orderDetailsMap">
+ 	select 
+      o.ID ORDER_ID, o.LAST_TIME ORDER_LAST_TIME, o.STATE ORDER_STATE,
+      a.ID ADDRESS_ID, a.consignee_name ADDRESS_NAME, a.cellphone_number ADDRESS_cellphone_number, a.detailed_address ADDRESS_DETAILS, 
+      i.quantity ITEM_quantity, 
+      c.ID CELLPHONE_ID, c.BRAND CELLPHONE_BRAND, c.MODEL CELLPHONE_MODEL, c.PRICE CELLPHONE_PRICE
+    from ORDERS o 
+      inner join receiving_address a on o.receiving_address_id = a.ID 
+      inner join ORDER_ITEM i on i.ORDER_ID = o.ID 
+      inner join CELLPHONE c on i.CELLPHONE_ID = c.ID
+    where o.SHOPUSER_ID = #{shopuserId} and o.ID = #{ordersId}
+  </select>
+  
+  <resultMap type="Orders" id="orderDetailsMap">
+    <id column="ORDER_ID" property="id" />
+    <result column="ORDER_LAST_TIME" property="lastTime" />
+    <result column="ORDER_STATE" property="state" />
+    
+    <association property="receivingAddress" javaType="ReceivingAddress">
+      <id column="ADDRESS_ID" property="id" />
+      <result column="ADDRESS_NAME" property="consigneeName" />
+      <result column="ADDRESS_cellphone_number" property="cellphoneNumber" />
+      <result column="ADDRESS_DETAILS" property="detailedAddress" />
+    </association>
+    
+    <collection property="items" ofType="OrderItem">
+      <id column="ORDER_ID" />
+      <id column="CELLPHONE_ID" />
+      <result column="ITEM_quantity" property="quantity" />
+      
+      <association property="cellphone" javaType="Cellphone">
+        <id column="CELLPHONE_ID" property="id" />
+        <result column="CELLPHONE_BRAND" property="brand" />
+        <result column="CELLPHONE_MODEL" property="model" />
+        <result column="CELLPHONE_PRICE" property="price" />
+      </association>
+    </collection>
+  </resultMap>
+
+	<select id="findAll" resultType="Orders">
+		select * from ORDERS where SHOPUSER_ID = #{shopuserId}
+	</select>
+  
+</mapper>

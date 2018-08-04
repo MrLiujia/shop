@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="shop.mapper.ReceivingAddressMapper">
+	<insert id="address">
+		insert into receiving_address(shopuser_id,consignee_name,cellphone_number,detailed_address) 
+       values(#{shopuser.id},#{consigneeName},#{cellphoneNumber},#{detailedAddress})
+	</insert>
+	
+	<select id="findAll" resultType="ReceivingAddress">
+		select * from receiving_address where shopuser_id=#{shopuserId}
+	</select>
+
+	<select id="findOne" resultType="ReceivingAddress">
+		select * from receiving_address
+		where shopuser_id = #{shopuserId} and ID = #{receivingAddressId}
+	</select>
+
+	<update id="update">
+		update receiving_address
+		set consignee_name = #{consigneeName}, cellphone_number =
+		#{cellphoneNumber}, detailed_address = #{detailedAddress}
+		where shopuser_id = #{shopuser.id} and ID = #{id}
+	</update>
+</mapper> 

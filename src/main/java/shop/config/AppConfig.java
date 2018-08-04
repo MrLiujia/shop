@@ -1,7 +1,13 @@
 package shop.config;
 
+
+
+import java.io.File;
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
+import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +24,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+
+
+
 @Configuration
 @ComponentScan("shop")
 @EnableWebMvc // 开启web mvc基础设施支持
 @MapperScan("shop.mapper")
-@PropertySource("classpath:jdbc.properties")
+@PropertySource({"classpath:jdbc.properties","classpath:alipay.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter{
 	public void configureViewResolvers(ViewResolverRegistry rigistry) {
 		rigistry.jsp("/WEB-INF/jsp/",".jsp");
@@ -57,4 +68,19 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	        configurer.enable();
 	    }
 		
+	@Bean
+	public AlipayClient alipayClient(Environment env) throws IOException {
+	    return new DefaultAlipayClient(
+	             "https://openapi.alipay.com/gateway.do",
+	             env.getProperty("alipay.appId"),
+	             FileUtils.readFileToString(new File(env.getProperty("alipay.appPrivateKeyFile")), "UTF-8"),
+	             "json",
+	             "UTF-8",
+	             FileUtils.readFileToString(new File(env.getProperty("alipay.appPrivateKeyFile")), "UTF-8"),
+	             env.getProperty("alipay.signType")
+	             );
+	    }
+	
+
+
 }
