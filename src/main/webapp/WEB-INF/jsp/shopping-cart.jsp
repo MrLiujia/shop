@@ -12,7 +12,7 @@
 
   <c:choose>
     <c:when test="${shoppingCart.items.isEmpty()}">
-      <div>购物车空空如也，<a href="${contextPath}/">去逛一逛</a></div>
+      <div>空空如也，<a href="${contextPath}/">去逛一逛</a></div>
     </c:when>
     <c:otherwise>
 	

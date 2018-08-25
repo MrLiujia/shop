@@ -26,6 +26,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 
 
@@ -82,5 +84,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	    }
 	
 
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
+	}
 
 }
